@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘怡佳 · 建筑学经历</title>
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fdf8f4;
+            color: #1e1a16;
+            line-height: 1.6;
+        }
+
+        /* ===== 叙事主线（极简定位语） ===== */
+        .narrative-thread {
+            background-color: #2c241e;
+            color: #f0ebe6;
+            padding: 2.2rem 1.5rem;
+            text-align: center;
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .narrative-thread span {
+            display: inline-block;
+            padding: 0 1.2rem;
+            opacity: 0.7;
+        }
+
+        /* ===== 板块通用容器 ===== */
+        .section-block {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.4rem, 5vw, 3.2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem;
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: #5a4f47;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid #f4a261;
+            padding-left: 1.2rem;
+            font-weight: 400;
+        }
+        .section-sub strong {
+            color: #2c241e;
+            font-weight: 600;
+        }
+
+        /* ===== 板块一：描绘 · 场所（大图流，极简文字） ===== */
+        .section-draw {
+            background-color: #ffffff;
+            scroll-margin-top: 20px;
+        }
+        .draw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+        }
+        .draw-item {
+            background: #f8f4ef;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .draw-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+        .draw-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #e8e0d8;
+        }
+        .draw-meta {
+            padding: 0.8rem 1.2rem 1.2rem 1.2rem;
+            font-size: 0.85rem;
+            color: #5a4f47;
+        }
+        .draw-meta .place {
+            font-weight: 600;
+            color: #2c241e;
+        }
+        .draw-meta .tool {
+            opacity: 0.7;
+            margin-left: 0.5rem;
+        }
+
+        /* ===== 板块二：构筑 · 日常（左图右文，单张图片） ===== */
+        .section-build {
+            background-color: #f8f4ef;
+            scroll-margin-top: 20px;
+        }
+        .build-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .build-project {
+            display: flex;
+            flex-wrap: wrap;
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.3s ease;
+        }
+        .build-project:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+        }
+
+        .build-gallery {
+            flex: 3;
+            min-width: 280px;
+            background: #f8f4ef;
+            display: flex;
+            align-items: stretch;
+        }
+        .build-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #e0d6cc;
+        }
+
+        .build-text {
+            flex: 1;
+            min-width: 200px;
+            padding: 2rem 2.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .build-text h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #2c241e;
+        }
+        .build-text .sub {
+            color: #f4a261;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+        .build-text p {
+            color: #3d352e;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        .build-text .insight {
+            font-size: 0.95rem;
+            background: #f0ebe6;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            color: #2c241e;
+            font-weight: 500;
+            align-self: flex-start;
+        }
+
+        /* ===== 板块三：构成 · 符号 ===== */
+        .section-compose {
+            background-color: #ffffff;
+            scroll-margin-top: 20px;
+        }
+        .compose-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+        }
+        .compose-header .section-sub {
+            border-left-color: #2c241e;
+        }
+
+        /* 双图容器：16:9 并排 */
+        .compose-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .compose-card {
+            background: #f8f4ef;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .compose-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+        .compose-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #d9cfc4;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+        .compose-card .card-label {
+            padding: 0.8rem 1.2rem 1.2rem 1.2rem;
+            font-size: 0.9rem;
+            color: #5a4f47;
+            background: white;
+        }
+        .compose-card .card-label strong {
+            color: #2c241e;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.1rem;
+        }
+        .compose-card .card-label span {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        /* 单图容器：横跨整行，作为一个整体悬浮 */
+        .compose-single {
+            margin-top: 2rem;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background: #f8f4ef;
+        }
+        .compose-single:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+        }
+        .compose-single img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #ddd2c6;
+        }
+        .compose-single .single-label {
+            padding: 0.8rem 1.2rem 1.2rem 1.2rem;
+            font-size: 0.9rem;
+            color: #5a4f47;
+            background: white;
+        }
+        .compose-single .single-label strong {
+            color: #2c241e;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.1rem;
+        }
+        .compose-single .single-label span {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+
+        /* ===== 返回主页按钮（与 engineering 页面完全一致） ===== */
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .back-home a {
+            display: inline-block;
+            padding: 14px 64px;
+            border: 2px solid #2c241e;
+            border-radius: 50px;
+            color: #2c241e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08rem;
+            transition: all 0.35s ease;
+            background: transparent;
+            letter-spacing: 0.8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .back-home a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #2c241e;
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+        .back-home a:hover {
+            color: white;
+            border-color: #2c241e;
+        }
+        .back-home a:hover::after {
+            left: 0;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 800px) {
+            .compose-duo {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .narrative-thread {
+                font-size: 1rem;
+                padding: 1.4rem 1rem;
+                letter-spacing: 2px;
+            }
+            .build-project {
+                flex-direction: column;
+            }
+            .build-gallery {
+                flex: none;
+                width: 100%;
+            }
+            .build-text {
+                flex: none;
+                width: 100%;
+                padding: 1.5rem;
+            }
+            .compose-card img {
+                aspect-ratio: 16 / 9;
+            }
+            .back-home a {
+                padding: 10px 40px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .section-block {
+                padding: 2rem 1rem 3rem 1rem;
+            }
+            .build-text h3 {
+                font-size: 1.4rem;
+            }
+            .draw-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .draw-item img {
+                height: 150px;
+            }
+            .back-home a {
+                padding: 8px 28px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 极简定位语（串起三个板块） ===== -->
+    <div class="narrative-thread">
+        <span>观察</span> <span>-</span> <span>建造</span> <span>-</span> <span>表达</span>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- 板块一：【 描绘 · 场所 】                                    -->
+    <!-- ========================================================== -->
+    <section class="section-block section-draw" id="section-draw">
+        <h2 class="section-title">描绘 · 场所</h2>
+        <div class="section-sub">
+            <strong>用眼睛捕捉，执画笔记录</strong> 【 钢笔淡彩 / 水彩渲染 / 城市速写 】
+        </div>
+
+        <div class="draw-grid">
+            <div class="draw-item">
+                <img src="draw/1.png" alt="东郊记忆水彩写生">
+                <div class="draw-meta">
+                    <span class="place">东郊记忆</span>
+                    <span class="tool">水彩 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/2.png" alt="邛崃平乐古镇水彩写生">
+                <div class="draw-meta">
+                    <span class="place">邛崃平乐古镇</span>
+                    <span class="tool">水彩 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/3.png" alt="安仁建川博物馆水彩写生">
+                <div class="draw-meta">
+                    <span class="place">安仁建川博物馆</span>
+                    <span class="tool">水彩 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/4.png" alt="龙泉洛带古镇水彩写生">
+                <div class="draw-meta">
+                    <span class="place">龙泉洛带古镇</span>
+                    <span class="tool">水彩 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/5.jpg" alt="刘氏庄园门匾钢笔速写">
+                <div class="draw-meta">
+                    <span class="place">刘氏庄园门匾</span>
+                    <span class="tool">钢笔 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/6.png" alt="乐山大佛清音亭钢笔速写">
+                <div class="draw-meta">
+                    <span class="place">乐山大佛清音亭</span>
+                    <span class="tool">钢笔 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/7.png" alt="峨眉院子钢笔速写">
+                <div class="draw-meta">
+                    <span class="place">峨眉院子</span>
+                    <span class="tool">钢笔 · 2023</span>
+                </div>
+            </div>
+            <div class="draw-item">
+                <img src="draw/8.png" alt="成都博物馆钢笔速写">
+                <div class="draw-meta">
+                    <span class="place">成都博物馆</span>
+                    <span class="tool">钢笔 · 2023</span>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 板块二：【 构筑 · 空间 】                                    -->
+    <!-- ========================================================== -->
+    <section class="section-block section-build" id="section-build">
+        <h2 class="section-title">构筑 · 空间</h2>
+        <div class="section-sub">
+            <strong>从功能到空间，从平面到立面</strong> 【 商业 / 文化 / 教育 / 人居 】
+        </div>
+
+        <div class="build-grid">
+
+            <div class="build-project">
+                <div class="build-gallery">
+                    <img src="creat/1.png" alt="幼儿园概念草图">
+                </div>
+                <div class="build-text">
+                    <h3>太古里独栋商业</h3>
+                    <div class="sub">2023 · 城市更新 · 界面与互动</div>
+                    <p>置身于太古里复杂的商业肌理，设计以清晰的体块切割回应历史街区的尺度。通过夹层与立面分缝，将现代玻璃与实体墙面并置，在喧嚣的商业氛围中建立起一种冷静、精致的独白，让建筑成为展示商品与城市对话的容器。</p>
+                    <span class="insight">极简立面下的都市橱窗</span>
+                </div>
+            </div>
+
+            <div class="build-project">
+                <div class="build-gallery">
+                    <img src="creat/2.png" alt="酒店剖面手稿">
+                </div>
+                <div class="build-text">
+                    <h3>大学生活动中心</h3>
+                    <div class="sub">2024 · 公共生活 · 共享与碰撞</div>
+                    <p>首层架空，地面归还步履与穿堂风。开放楼梯斜贯中庭，是交通，亦是看台与剧场。拾级而上，视线交错，独行与结伴、安静与喧哗、计划与偶遇，都在同一片空间里重叠。空间不再是容器，而是事件的发生场。</p>
+                    <span class="insight">空间即事件 相遇即建筑</span>
+                </div>
+            </div>
+
+            <div class="build-project">
+                <div class="build-gallery">
+                    <img src="creat/3.png" alt="酒店剖面手稿">
+                </div>
+                <div class="build-text">
+                    <h3>"折线乐园"幼儿园</h3>
+                    <div class="sub">2024 · 形体与趣味</div>
+                    <p>一条折线，落笔天真。两个矩形体块以此为契，交错穿插，彼此让渡出一方围合的院落。折角掏空，阳光房与游戏角就此生长。三角形窗洞大小不一地散落于立面，如童趣的涂鸦。整座建筑因而不再是一座被观看的房子，而是一幅可以被进入的画。孩子们在这里奔跑，每一次转弯，都是一次新的发现。</p>
+                    <span class="insight">一笔折线 一座游园</span>
+                </div>
+            </div>
+
+            <div class="build-project">
+                <div class="build-gallery">
+                    <img src="creat/4.png" alt="茶室概念草图">
+                </div>
+                <div class="build-text">
+                    <h3>"原筑"艺术家住宅</h3>
+                    <div class="sub">2023 · 栖居与诗意 · 场所与精神</div>
+                    <p>"原"，是本源，是材料未经粉饰的本来面目，是空间未被功能绑架的原始状态。以几何嵌入场地，不惊不扰。墙体粗粝如实，开窗只为框住一角远山。平面松散留白，廊院交错，行走即观看。在这里，生活不再被空间支配，而是与四季一同生长，感受混凝土的冷，木纹的暖，影子的移动，雨滴落在屋檐的声音。</p>
+                    <span class="insight">建筑退回原材 生活回归感知</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- 板块三：【 构成 · 符号 】                                   -->
+    <!-- 第一行：01, 02 ; 第二行：03, 04 ; 第三行：05 全宽          -->
+    <!-- ========================================================== -->
+    <section class="section-block section-compose" id="section-compose">
+        <div class="compose-header">
+            <div>
+                <h2 class="section-title">构成 · 符号</h2>
+                <div class="section-sub">
+                    <strong>从建筑平面到视觉语言</strong> 【 海报 / 文创 / 模型 】
+                </div>
+            </div>          
+            </div>
+        </div>
+
+        <!-- 第一行：01, 02 -->
+        <div class="compose-duo">
+            <div class="compose-card">
+                <img src="creat/01.png" alt="构成·符号 作品一">
+                <div class="card-label">
+                    <strong>【纪柿时空】主题酒店</strong>
+                    <span>2024 · 客房/产品/视觉 一体化设计</span>
+                </div>
+            </div>
+            <div class="compose-card">
+                <img src="creat/02.png" alt="构成·符号 作品二">
+                <div class="card-label">
+                    <strong>【纪柿时空】主题酒店</strong>
+                    <span>2024 · 客房/产品/视觉 一体化设计</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二行：03, 04 -->
+        <div class="compose-duo">
+            <div class="compose-card">
+                <img src="creat/003.png" alt="构成·符号 作品三">
+                <div class="card-label">
+                    <strong>茶室手工模型</strong>
+                    <span>2023 · 手作 · 竹影 · 茶寮</span>
+                </div>
+            </div>
+            <div class="compose-card">
+                <img src="creat/04.png" alt="构成·符号 作品四">
+                <div class="card-label">
+                    <strong>景观小品搭建</strong>
+                    <span>2023 · 构成 · 空间 · 尺度</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三行：05 全宽单图，整体作为卡片悬浮 -->
+        <div class="compose-single">
+            <img src="creat/005.png" alt="构成·符号 作品五 全幅">
+            <div class="single-label">
+                <strong>鹿栖山海间</strong>
+                <span>2024 · 鹿回头景区数字艺术品创意设计</span>
+            </div>
+        </div>
+
+        <p style="margin-top: 2.4rem; font-size: 0.95rem; color: #5a4f47; border-top: 1px solid #e8e0d8; padding-top: 1.4rem; text-align: right; max-width: 70%; margin-left: auto;">
+            "用构成的语言，重述建筑的故事。"
+        </p>
+    </section>
+
+    <!-- ===== 返回主页按钮（与 engineering 页面完全一致） ===== -->
+    
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem 4rem 2rem;">
+        <div class="back-home">
+            <a href="index.html#section-architecture">返回主页</a>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div style="background: #2c241e; height: 4px; width: 100%;"></div>
+    <footer style="background: #1e1a16; color: #8a7e74; text-align: center; padding: 2rem 1rem; font-size: 1rem; letter-spacing: 3px;">
+        <p>刘怡佳 - 建筑学</p>
+    </footer>
+
+</body>
+</html>

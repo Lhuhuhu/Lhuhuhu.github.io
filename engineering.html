@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘怡佳 · 电子信息项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fdfaf8;
+            color: #1e1a16;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== 叙事主线 ===== */
+        .narrative-thread {
+            background-color: #2c241e;
+            color: #f0ebe6;
+            padding: 2.2rem 1.5rem;
+            text-align: center;
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .narrative-thread span {
+            display: inline-block;
+            padding: 0 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* ===== 板块容器 ===== */
+        .section-block {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 4rem 2rem 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.4rem, 5vw, 3.2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem;
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: #5a4f47;
+            margin-bottom: 8rem;
+            border-left: 4px solid #f4a261;
+            padding-left: 1.2rem;
+            font-weight: 400;
+        }
+        .section-sub strong {
+            color: #2c241e;
+            font-weight: 600;
+        }
+
+        /* ===== 项目卡片堆叠（原主页样式） ===== */
+        .card-stack-full {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card-strip {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 0 48px 0 0;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+            position: relative;
+            overflow: visible;
+            width: 100%;
+            height: 50vh;
+            min-height: 440px;
+            max-height: 700px;
+            flex-shrink: 0;
+        }
+
+        .card-strip:hover {
+            transform: translateY(-6px) scale(1.005);
+            box-shadow: 0 28px 64px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-strip .strip-image {
+            position: absolute;
+            bottom: 0;
+            z-index: 2;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.10));
+            transition: filter 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card-strip:hover .strip-image {
+            filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.18));
+            transform: scale(1.04);
+        }
+
+        .card-strip .strip-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 14px;
+            object-fit: contain;
+            background: transparent;
+        }
+
+        .card-strip .strip-body {
+            flex: 1;
+            padding: 0 0 0 300px;
+            position: relative;
+            z-index: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* ===== 拖拽生成的偏移参数（已写入） ===== */
+        /* 卡片 1：胸腔积液智能诊疗装置 */
+        .card-strip[data-card="1"] .strip-body {
+            transform: translate(420px, -10px);
+        }
+        /* 卡片 2：简易自行瞄准装置 */
+        .card-strip[data-card="2"] .strip-body {
+            transform: translate(-166px, -3.33333px);
+        }
+        /* 卡片 3：智能烧烤蘸碟配料设备 */
+        .card-strip[data-card="3"] .strip-body {
+            transform: translate(355px, 0.333313px);
+        }
+
+
+        /* 项目1：胸腔积液 —— 宽度 280px */
+        .card-strip[data-card="1"] .strip-overview {
+            width: 682px;
+        }
+
+        /* 项目2：瞄准装置 —— 宽度 360px */
+        .card-strip[data-card="2"] .strip-overview {
+            width: 664px;
+        }
+
+        /* 项目3：烧烤设备 —— 宽度 300px */
+        .card-strip[data-card="3"] .strip-overview {
+            width: 620px;
+        }
+
+
+        .card-strip .strip-icon {
+            font-size: 1.8rem;
+            display: inline-block;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .card-strip h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e1a16;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .card-strip .strip-meta {
+            font-size: 0.95rem;
+            color: #f4a261;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-strip .strip-desc {
+            font-size: 1.05rem;
+            color: #5a4f47;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            max-width: 700px;
+        }
+
+        /* 项目概述——与详细描述区分样式 */
+        
+        .strip-overview {
+            width: 680px;              /* 用固定宽度控制橙色条长度，改这个数字即可 */
+            font-size: 1.08rem;
+            font-weight: 500;
+            color: #2c241e;
+            background: rgba(244, 162, 97, 0.08);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f4a261;
+            white-space: nowrap;       /* 防止文字换行，保持单行 */
+            overflow: hidden;          /* 超出部分隐藏 */
+            text-overflow: ellipsis;   /* 如果文字太长显示...（可选） */
+        }
+
+        .card-strip .strip-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .card-strip .strip-tags span {
+            background: #f4a3612a;
+            color: #2c241e;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            line-height: 2;
+        }
+
+        /* 按钮组：让“观看演示”和“项目详情”并排 */
+        .strip-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .card-strip .strip-btn {
+            display: inline-block;
+            padding: 6px 32px;
+            border: 1.5px solid #2c241e;
+            border-radius: 40px;
+            color: #2c241e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: transparent;
+            line-height: 1.8;
+            align-self: flex-start;
+        }
+
+        .card-strip .strip-btn:hover {
+            background: #2c241e;
+            color: white;
+            border-color: #2c241e;
+        }
+
+        /* 每个项目图片的位置（与原来保持一致） */
+        .card-project-1 .strip-image {
+            left: -110px;
+            width: 750px;
+            bottom: 15px;
+        }
+        .card-project-2 .strip-image {
+            left: 820px;
+            width: 650px;
+        }
+        .card-project-3 .strip-image {
+            left: 50px;
+            width: 500px;
+        }
+
+        .card-project-1 { background: #f5ede3; }
+        .card-project-2 { background: #f5ede3; }
+        .card-project-3 { background: #f5ede3; }
+
+        /* ===== 返回按钮 ===== */
+        .back-home {
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .back-home a {
+            display: inline-block;
+            padding: 14px 64px;
+            border: 2px solid #2c241e;
+            border-radius: 50px;
+            color: #2c241e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08rem;
+            transition: all 0.35s ease;
+            background: transparent;
+            letter-spacing: 0.8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .back-home a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #2c241e;
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+        .back-home a:hover {
+            color: white;
+            border-color: #2c241e;
+        }
+        .back-home a:hover::after {
+            left: 0;
+        }
+
+        /* ======================================== */
+        /* 响应式适配（与主页保持一致） */
+        /* ======================================== */
+        @media (max-width: 1024px) {
+            .card-strip {
+                height: 60vh;
+                min-height: 380px;
+                max-height: 580px;
+                padding: 0 32px 0 0;
+                border-radius: 16px;
+            }
+            .card-strip .strip-image {
+                width: 260px;
+                height: 170%;
+            }
+            .card-strip .strip-body {
+                padding: 0 0 0 240px;
+            }
+            .card-strip h3 {
+                font-size: 1.6rem;
+            }
+            .card-strip .strip-desc {
+                font-size: 0.95rem;
+            }
+            /* 响应式下重置偏移，避免文字跑出视野 */
+            .card-strip[data-card="1"] .strip-body,
+            .card-strip[data-card="2"] .strip-body,
+            .card-strip[data-card="3"] .strip-body {
+                transform: translate(0, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .narrative-thread {
+                font-size: 1rem;
+                padding: 1.4rem 1rem;
+                letter-spacing: 2px;
+            }
+
+            .section-block {
+                padding: 2rem 1rem 3rem 1rem;
+            }
+
+            .card-stack-full {
+                gap: 50px;
+                width: 100%;
+            }
+
+            .card-strip {
+                flex-direction: column;
+                padding: 24px 20px 28px 20px;
+                height: auto;
+                min-height: 420px;
+                max-height: none;
+                border-radius: 16px;
+                gap: 12px;
+            }
+
+            .card-strip .strip-image {
+                position: relative;
+                left: auto !important;
+                bottom: auto;
+                width: 55% !important;
+                height: auto;
+                margin: -50px auto 0 auto;
+                margin-bottom: -16px;
+                pointer-events: auto;
+            }
+
+            .card-strip .strip-image img {
+                aspect-ratio: 1 / 0.9;
+                border-radius: 14px;
+            }
+
+            .card-strip .strip-body {
+                padding: 0;
+                height: auto;
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                transform: translate(0, 0) !important; /* 移动端强制复位 */
+            }
+
+            .card-strip .strip-desc {
+                max-width: 100%;
+            }
+
+            .strip-actions {
+                justify-content: center;
+            }
+            .card-strip .strip-btn {
+                align-self: center;
+            }
+
+            .back-home a {
+                padding: 10px 40px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-stack-full {
+                gap: 40px;
+            }
+            .card-strip {
+                min-height: 340px;
+                padding: 16px 14px 20px 14px;
+                border-radius: 14px;
+            }
+            .card-strip .strip-image {
+                width: 50% !important;
+                margin-top: -36px;
+                margin-bottom: -10px;
+            }
+            .card-strip h3 {
+                font-size: 1.3rem;
+            }
+            .card-strip .strip-icon {
+                font-size: 1.4rem;
+            }
+            .card-strip .strip-meta {
+                font-size: 0.75rem;
+            }
+            .card-strip .strip-overview {
+                font-size: 0.9rem;
+                padding: 0.1rem 0.8rem;
+            }
+            .card-strip .strip-desc {
+                font-size: 0.85rem;
+            }
+            .card-strip .strip-tags span {
+                font-size: 0.6rem;
+                padding: 0 10px;
+                line-height: 1.8;
+            }
+            .card-strip .strip-btn {
+                font-size: 0.75rem;
+                padding: 4px 20px;
+            }
+            .back-home a {
+                font-size: 0.85rem;
+                padding: 8px 28px;
+            }
+            /* 移动端强制复位 */
+            .card-strip .strip-body {
+                transform: translate(0, 0) !important;
+            }
+            .strip-actions {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 极简定位语 ===== -->
+    <div class="narrative-thread">
+        <span>感知</span> <span>-</span> <span>控制</span> <span>-</span> <span>智能</span>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- 电子信息 · 三个项目详览（内容已更新）                    -->
+    <!-- ========================================================== -->
+    <section class="section-block">
+        <h2 class="section-title">智能硬件 · 项目详览</h2>
+        <div class="section-sub">
+            <strong>从感知到控制，从嵌入式到AI</strong> 【 STM32 / 视觉 / 机电一体化 】
+        </div>
+
+        <div class="card-stack-full">
+
+            <!-- 项目1：胸腔积液智能诊疗装置 -->
+            <div class="card-strip card-project-1" data-card="1">
+                <div class="strip-image">
+                    <img src="ruixi.png" alt="胸腔积液智能诊疗装置">
+                </div>
+                <div class="strip-body">
+                    <span class="strip-icon"></span>
+                    <h3>胸腔积液智能诊疗装置</h3>
+                    <div class="strip-meta">2026 · 全球校园人工智能算法精英大赛AI+创新创业：四川省一等奖 / 国家级二等奖</div>
+                    <!-- 概述 -->
+                    <div class="strip-overview">面向临床引流操作的智能模拟装置，通过传感监测排液进程，实现自动停泵与预警。</div>
+                    <p class="strip-desc">
+                        模拟临床引流操作，通过重力传感器：电阻应变片+HX711，监测引流瓶重量变化模拟<br>胸腔积液排出量。STM32F103主控将压力值映射为PWM占空比，实现水泵三档调速。<br>串口屏多级GUI显示运行模式与预警状态，阈值触发自动停泵并弹窗。
+                    </p>
+                    <div class="strip-tags">
+                        <span>STM32F103</span><span>HX711</span><span>PWM</span><span>串口屏UART</span>
+                    </div>
+                    <!-- 按钮组：项目详情 在左，视频介绍 在右 -->
+                    <div class="strip-actions">
+                        <a href="睿析胸腔_项目详情.pdf" target="_blank" class="strip-btn">◆ 项目详情</a>
+                        <a href="https://www.bilibili.com/video/BV1Av3n6FE8v" target="_blank" class="strip-btn">▶ 视频介绍</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目2：简易自行瞄准装置 -->
+            <div class="card-strip card-project-2" data-card="2">
+                <div class="strip-image">
+                    <img src="miaozhun.png" alt="简易自行瞄准装置">
+                </div>
+                <div class="strip-body">
+                    <span class="strip-icon"></span>
+                    <h3>自行瞄准装置</h3>
+                    <div class="strip-meta">2025 · 全国大学生电子设计竞赛：四川省三等奖</div>
+                    <!-- 概述 -->
+                    <div class="strip-overview">面向移动平台的视觉伺服瞄准系统，在循迹行进中对特定靶标实现自动瞄准追踪。</div>
+                    <p class="strip-desc">
+                        小车循迹移动过程中，通过视觉识别场地双矩形目标并控制激光笔精准瞄准。<br>视觉模块基于K230芯片，采用图像二值化、轮廓提取与中心定位算法解算目标坐标。<br>主控MSPM0G3507驱动舵机云台闭环追踪，配套嵌入式GUI交互系统（状态机架构、<br>三级触控界面）支持阈值参数实时触调，提升光照适应性。
+                    </p>
+                    <div class="strip-tags">
+                        <span>K230</span><span>OpenCV</span><span>MSPM0G3507</span><span>PWM</span><span>状态机</span>
+                    </div>
+                    <!-- 按钮组：项目详情 在左，视频介绍 在右 -->
+                    <div class="strip-actions">
+                        <a href="瞄准装置_技术文档.pdf" target="_blank" class="strip-btn">◆ 技术文档</a>
+                        <a href="https://www.bilibili.com/video/BV1F63n6dEaj" target="_blank" class="strip-btn">▶ 观看演示</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目3：智能烧烤蘸碟配料设备 -->
+            <div class="card-strip card-project-3" data-card="3">
+                <div class="strip-image">
+                    <img src="shaokao.png" alt="智能烧烤蘸碟配料设备">
+                </div>
+                <div class="strip-body">
+                    <span class="strip-icon"></span>
+                    <h3>智能烧烤蘸碟配料设备</h3>
+                    
+                    <!-- 概述 -->
+                    <div class="strip-overview">面向粉状调味料的自动定量配料设备，支持配方下发与多路电机协同出料。</div>
+                    <p class="strip-desc">
+                        基于STM32F407主控，采用有限状态机设计六路电机顺序调度，结合闭环控制与增量式自动去皮算法实现±1g配料精度。基于USART3串口中断实现与串口屏的双向通信，完成配方下发与状态上报。使用SketchUp完成整机3D建模（螺旋推杆送料机构+分层式外壳）并3D打印落地，使用Photoshop完成全套屏幕交互界面设计，实现从硬件底层到用户界面的全链路交付。
+                    </p>
+                    <div class="strip-tags">
+                        <span>STM32F407</span><span>状态机</span><span>闭环控制</span><span>USART</span><span>串口屏</span><span>SketchUp</span><span>PS</span>
+                    </div>
+                    <!-- 按钮组：项目详情 在左，视频介绍 在右 -->
+                    <div class="strip-actions">
+                        <a href="配料设备_技术文档.pdf" target="_blank" class="strip-btn">◆ 技术文档</a>
+                        <a href="https://www.bilibili.com/video/BV1sj3v6BE7S" target="_blank" class="strip-btn">▶ 视频介绍</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== 返回主页按钮 ===== -->
+        <div class="back-home">
+            <a href="index.html#section-engineering"> 返回主页</a>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <div style="background: #2c241e; height: 4px; width: 100%;"></div>
+    <footer style="background: #1e1a16; color: #8a7e74; text-align: center; padding: 2rem 1rem; font-size: 1rem; letter-spacing: 3px;">
+        <p>刘怡佳 - 信息工程</p>
+    </footer>
+
+</body>
+</html>
